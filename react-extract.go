@@ -3,7 +3,15 @@ package main
 import (
 	"fmt"
 	"os"
+  "io/ioutil"
+	"regexp"
 )
+
+func check(e error) {
+    if e != nil {
+        panic(e)
+    }
+}
 
 func main() {
 
@@ -18,4 +26,16 @@ func main() {
 
 	fmt.Println(entry_file)
 	fmt.Println(copy_dir)
+
+	// read the entry file
+	dat, err := ioutil.ReadFile(os.Args[1])
+	check(err)
+	fmt.Println("Data loaded: ")
+	fmt.Print(string(dat))
+
+	// regex for file paths: \/.*?\.[\w:]+
+	match, _ := regexp.MatchString(`\/.*?\.[\w:]+`, string(dat))
+	fmt.Println("Regex Match: ")
+  fmt.Println(match)
+
 }
