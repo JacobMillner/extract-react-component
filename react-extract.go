@@ -33,8 +33,8 @@ func main() {
 	fmt.Println("Data loaded: ")
 	fmt.Print(string(dat))
 
-	// regex for file paths: \/.*?\.[\w:]+
-	match, _ := regexp.MatchString(`\/.*?\.[\w:]+`, string(dat))
+	// regex to grab file paths from imports
+	match, _ := regexp.MatchString(`^import\s+(.* from\s+)?['|"]([.\/|~\/].*)[['|"]|[';|";]]$`, string(dat))
 	fmt.Println("Regex Match: ")
   fmt.Println(match)
 
